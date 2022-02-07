@@ -1,23 +1,29 @@
 const express = require("express");
 const app = express();
-const path = require("path");
+const ejs = require("ejs");
 
-/*// MIDDLEWARE FUNC  (Everything that is in between req and res objects are MIDDLEWARES)
-const myLogger = (req, res, next) => {
-  console.log("Middleware log 1");
-  next(); // Use next() func to move on to the next middleware
-};
-*/
-
+// TEMPLATE ENGINE
+app.set("view engine", "ejs"); // this gets the files in views folder
 app.use(express.static("public"));
-/*/// MIDDLEWARES
-app.use(myLogger);
-*/
 
+// ROUTES
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "temp/index.html"));
+  res.render("index");
 });
 
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+app.get("/add", (req, res) => {
+  res.render("add");
+});
+
+app.get("/photo", (req, res) => {
+  res.render("photo");
+});
+
+// LISTEN PORT
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
