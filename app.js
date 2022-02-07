@@ -1,8 +1,27 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+
+/*// MIDDLEWARE FUNC  (Everything that is in between req and res objects are MIDDLEWARES)
+const myLogger = (req, res, next) => {
+  console.log("Middleware log 1");
+  next(); // Use next() func to move on to the next middleware
+};
+*/
+
+const photo = {
+  id: 1,
+  name: "Photo 1",
+  desc: "Decription 1",
+};
+
+app.use(express.static("public"));
+/*/// MIDDLEWARES
+app.use(myLogger);
+*/
 
 app.get("/", (req, res) => {
-  res.send("Hi :)");
+  res.sendFile(path.resolve(__dirname, "temp/index.html"));
 });
 
 const PORT = 5000;
