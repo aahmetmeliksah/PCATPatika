@@ -9,12 +9,6 @@ const myLogger = (req, res, next) => {
 };
 */
 
-const photo = {
-  id: 1,
-  name: "Photo 1",
-  desc: "Decription 1",
-};
-
 app.use(express.static("public"));
 /*/// MIDDLEWARES
 app.use(myLogger);
