@@ -1,0 +1,19 @@
+{
+  "name": "pcat-project-patikanodejs",
+  "version": "1.0.0",
+  "description": "\"# PCATPatika\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aahmetmeliksah/PCATPatika.git"
+  },
+  "author": "Ahmet Melikşah Akdeniz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aahmetmeliksah/PCATPatika/issues"
+  },
+  "homepage": "https://github.com/aahmetmeliksah/PCATPatika#readme"
+}
