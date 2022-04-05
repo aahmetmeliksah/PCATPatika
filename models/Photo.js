@@ -1,11 +1,10 @@
 const mongoose = require("mongoose"); // ES6 import mongoose from 'mongoose';
 
-mongoose.connect("mongodb://localhost/photosDB");
-
 const PhotoSchema = new mongoose.Schema({
   title: String,
   desc: String,
-  uploadedDate: {
+  image: String,
+  dateCreated: {
     type: Date,
     default: Date.now,
   },
@@ -13,9 +12,22 @@ const PhotoSchema = new mongoose.Schema({
 
 const Photo = mongoose.model("Photo", PhotoSchema);
 
-Photo.create({
-  title: "Photo 1",
-  desc: "Desc 1",
-});
+// mongoose.connect("mongodb://localhost/photosDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+//
+//
+
+// Photo.create({
+//   title: "Photo 13",
+//   desc: "Desc 13",
+// });
+
+// Read Data
+// Photo.find({ title: "Photo 13" }, (err, photo) => {
+//   console.log(photo);
+// });
 
 module.exports = Photo;

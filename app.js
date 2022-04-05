@@ -1,9 +1,20 @@
 const express = require("express");
-const app = express();
 const ejs = require("ejs");
+const mongoose = require("mongoose");
+const app = express();
+
+const Photo = require("./models/Photo.js");
+
+// CONNECT DB
+mongoose.connect("mongodb://localhost/photosDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // TEMPLATE ENGINE
 app.set("view engine", "ejs"); // this gets the files in views folder
+// ejs goes through the views folder and looks for files with .ejs extension
+//
 
 // Middlewares
 /* this gets static files in public folder also  express.static() is a middleware function */
@@ -12,9 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // ROUTES
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const photos = await Photo.find({});
   // render method renders index.ejs file
-  res.render("index");
+  res.render("index", {
+    photos,
+  });
 });
 
 app.get("/about", (req, res) => {
@@ -34,7 +48,8 @@ app.get("/photos", (req, res) => {
 
 // post photo from add page
 app.post("/photos", (req, res) => {
-  console.log(req.body);
+  Photo.create(req.body);
+  // console.log(req.body);
   res.redirect("/");
 });
 
