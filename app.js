@@ -31,6 +31,15 @@ app.get("/", async (req, res) => {
   });
 });
 
+// get single item
+app.get("/photos/:id", async (req, res) => {
+  // console.log(req.params);
+  const photo = await Photo.findById(req.params.id);
+  res.render("photo", {
+    photo,
+  });
+});
+
 app.get("/about", (req, res) => {
   // renders about.ejs file
   res.render("about");
