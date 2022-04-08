@@ -27,7 +27,7 @@ app.use(fileUpload());
 
 // ROUTES
 app.get("/", async (req, res) => {
-  const photos = await Photo.find({});
+  const photos = await Photo.find({}).sort("-dateCreated"); // use sort put
   // render method renders index.ejs file
   res.render("index", {
     photos,
