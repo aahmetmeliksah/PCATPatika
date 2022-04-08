@@ -1,6 +1,8 @@
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const fileUpload = require("express-fileupload");
+const fs = require("fs");
 const app = express();
 
 const Photo = require("./models/Photo.js");
@@ -21,6 +23,7 @@ app.set("view engine", "ejs"); // this gets the files in views folder
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(fileUpload());
 
 // ROUTES
 app.get("/", async (req, res) => {
@@ -35,7 +38,7 @@ app.get("/", async (req, res) => {
 app.get("/photos/:id", async (req, res) => {
   // console.log(req.params);
   const photo = await Photo.findById(req.params.id);
-  res.render("photo", {
+  res.render("photos", {
     photo,
   });
 });
@@ -56,10 +59,25 @@ app.get("/photos", (req, res) => {
 });
 
 // post photo from add page
-app.post("/photos", (req, res) => {
-  Photo.create(req.body);
-  // console.log(req.body);
-  res.redirect("/");
+app.post("/photos", async (req, res) => {
+  // console.log(req.files.image);
+
+  const uploadDir = "public/uploads";
+
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+  }
+
+  let image = req.files.image;
+  let imagePath = `${__dirname}/public/uploads/${image.name}`;
+
+  image.mv(imagePath, async () => {
+    await Photo.create({
+      ...req.body,
+      image: "/uploads/" + image.name,
+    });
+    res.redirect("/");
+  });
 });
 
 // LISTEN PORT
