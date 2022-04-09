@@ -34,7 +34,7 @@ https://templatemo.com/tm-552-video-catalog
               <div class="col-12">
                 <div class="mx-auto tm-about-text-container px-3">
                   <h2 class="tm-page-title mb-4 tm-text-primary">
-                    Add New Photo
+                    Edit Photo
                   </h2>
                   <p class="mb-4">
                     Integer sit amet odio id libero tincidunt dignissim in eget
@@ -55,7 +55,7 @@ https://templatemo.com/tm-552-video-catalog
                   <!-- method triggers the post method and action redirects to photos page  -->
                   <form 
                   method="POST" 
-                  action="/photos" 
+                  action="/photos/<%= photo._id %>?_method=PUT" 
                   class="tm-contact-form" 
                   encType="multipart/form-data">
                     <div class="form-group">
@@ -64,6 +64,7 @@ https://templatemo.com/tm-552-video-catalog
                         name="title"
                         class="form-control rounded-0"
                         placeholder="Photo Title"
+                        value="<%= photo.title %>"
                         required
                       />
                     </div>
@@ -78,18 +79,16 @@ https://templatemo.com/tm-552-video-catalog
                         class="form-control rounded-0"
                         placeholder="Photo description"
                         required
-                      ></textarea>
+                      > <%= photo.desc %> </textarea>
                     </div>
-                    <div class="form-group">
-                      <input type="file" name="image" class="form-control-file rounded-0" />
-                    </div>
+                 
 
                     <div class="form-group mb-0">
                       <button
                         type="submit"
                         class="btn btn-primary rounded-0 d-block ml-auto mr-0 tm-btn-animate tm-btn-submit tm-icon-submit"
                       >
-                        <span>Submit</span>
+                        <span>Update</span>
                       </button>
                     </div>
                   </form>
