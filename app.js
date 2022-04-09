@@ -26,7 +26,11 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload());
-app.use(methodOverride("_method"));
+app.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
 
 // ROUTES
 app.get("/", async (req, res) => {
@@ -63,6 +67,16 @@ app.put("/photos/:id", async (req, res) => {
   photo.save();
 
   res.redirect(`/photos/${req.params.id}`);
+});
+
+// delete photo
+app.delete("/photos/:id", async (req, res) => {
+  const photo = await Photo.findOne({ _id: req.params.id });
+  let imgPathToDelete = `${__dirname}/public/${photo.image}`;
+  fs.unlinkSync(imgPathToDelete);
+  await Photo.findByIdAndRemove(req.params.id);
+
+  res.redirect("/");
 });
 
 app.get("/photos", (req, res) => {
